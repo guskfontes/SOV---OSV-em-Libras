@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura Frasal: SVO vs OSV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CSS Base e Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #020c1b; /* Fundo extra escuro para contraste */
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            place-items: center;
+            min-height: 100vh;
+            padding: 40px 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Container Principal do Slide */
+        .slide-container {
+            align-items: center;
+            background: radial-gradient(circle at top right, #112240, #0a192f); /* Azul Marinho Profundo */
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            height: 720px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: 1280px;
+            color: #8892b0; /* Cor do texto base */
+        }
+
+        /* Elementos Decorativos de Fundo */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.03) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slide-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tipografia */
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #ccd6f6; /* Texto de Título Claro */
+            margin: 0;
+        }
+
+        p, li, th, td {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .slide-container h1 {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .slide-container .slide-title {
+            font-size: 46px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+            border-left: 6px solid #64ffda; /* Detalhe em ciano */
+            padding-left: 20px;
+        }
+
+        .slide-container h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #e6f1ff;
+        }
+
+        .accent {
+            color: #64ffda; /* Cor de destaque (Ciano) */
+        }
+
+        .accent-yellow {
+            color: #ffd700; /* Destaque secundário */
+        }
+
+        .content-area {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Layout: Title Slide */
+        .title-layout {
+            text-align: center;
+            max-width: 900px;
+        }
+        .title-layout p {
+            font-size: 24px;
+            color: #8892b0;
+            margin-top: 20px;
+        }
+
+        /* Layout: Section Title */
+        .section-title-layout {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .section-title-layout h2 {
+            font-size: 64px;
+        }
+        .section-title-layout hr {
+            width: 150px;
+            height: 4px;
+            background-color: #64ffda;
+            border: none;
+            margin-bottom: 30px;
+        }
+
+        /* Layout: Two Column & Tiled */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .two-column.tiled {
+            align-items: stretch;
+        }
+
+        .two-column.tiled > div {
+            background-color: #112240;
+            border-radius: 12px;
+            border: 1px solid #233554;
+            padding: 50px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+
+        .two-column.tiled h3 {
+            color: #64ffda;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .two-column.tiled p {
+            font-size: 20px;
+            color: #ccd6f6;
+        }
+
+        /* Layout: Tiled Text With Icons */
+        .tiled-content {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            justify-content: center;
+            align-items: stretch;
+        }
+        .tile {
+            background-color: #112240;
+            border-radius: 12px;
+            border: 1px solid #233554;
+            padding: 40px 30px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tile .icon {
+            color: #64ffda;
+            font-size: 50px;
+            margin-bottom: 25px;
+            background: rgba(100, 255, 218, 0.1);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Layout: Table */
+        .table-layout {
+            width: 100%;
+            background-color: #112240;
+            border-radius: 12px;
+            border: 1px solid #233554;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 20px 30px;
+            text-align: left;
+            border-bottom: 1px solid #233554;
+        }
+        th {
+            background-color: #0a192f;
+            color: #64ffda;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        td {
+            color: #ccd6f6;
+            font-size: 20px;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        .tag-svo {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .tag-osv {
+            background: rgba(100, 255, 218, 0.15);
+            color: #64ffda;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Assinatura do Professor (Footer) */
+        .slide-footer {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            color: #8892b0;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            z-index: 10;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container" id="slide1">
+        <div class="title-layout">
+            <h1>Estrutura Frasal:<br><span class="accent">Português vs. Libras</span></h1>
+            <p>Compreendendo a transição do pensamento ouvinte (SVO) para o pensamento visual surdo (OSV).</p>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 2: Section - Conteúdo Principal -->
+    <div class="slide-container" id="slide2">
+        <div class="section-title-layout">
+            <hr>
+            <h2>Sintaxe e Gramática</h2>
+            <p style="font-size: 24px; margin-top: 20px; color: #8892b0;">Entendendo SVO e OSV</p>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 3: Two Column Tiled (SVO vs OSV Concept) -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">A Base da Comunicação</h2>
+        <div class="content-area">
+            <div class="two-column tiled">
+                <div style="border-top: 6px solid #ffd700;">
+                    <h3 class="accent-yellow">SVO (Ouvintes)</h3>
+                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px;">Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Objeto</p>
+                    <p style="font-size: 18px; color: #8892b0;">A estrutura padrão da Língua Portuguesa falada e escrita. A ação segue o sujeito linearmente.</p>
+                </div>
+                <div style="border-top: 6px solid #64ffda;">
+                    <h3 class="accent">OSV (Surdos)</h3>
+                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px;">Objeto <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo</p>
+                    <p style="font-size: 18px; color: #8892b0;">A topicalização na Libras. O foco visual (o objeto) é apresentado primeiro, montando o cenário.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 4: Table (Examples 1-5) -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">Exemplos Práticos (1 a 5)</h2>
+        <div class="content-area">
+            <div class="table-layout">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 38%;">Português (Ouvinte)</th>
+                            <th style="width: 38%;">Libras (Surdo)</th>
+                            <th style="width: 24%;">Estrutura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Eu estudo Libras.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Libras</span> eu estudar.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>A mulher comprou o carro.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Carro</span> mulher comprar.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>O menino comeu a maçã.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Maçã</span> menino comer.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>Nós assistimos o filme.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Filme</span> nós assistir.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>O professor ensina a lição.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Lição</span> professor ensinar.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 5: Table (Examples 6-10) -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">Exemplos Práticos (6 a 10)</h2>
+        <div class="content-area">
+            <div class="table-layout">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 38%;">Português (Ouvinte)</th>
+                            <th style="width: 38%;">Libras (Surdo)</th>
+                            <th style="width: 24%;">Estrutura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Eu perdi a chave.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Chave</span> eu perder.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>Ela bebeu a água.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Água</span> ela beber.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>O cachorro mordeu o homem.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Homem</span> cachorro morder.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>Eu amo minha família.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Família</span> minha eu amar.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                        <tr>
+                            <td>Ele abriu a porta.</td>
+                            <td><span style="color:#64ffda; font-weight:600;">Porta</span> ele abrir.</td>
+                            <td><span class="tag-svo">SVO</span> <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px; color: #8892b0;"></i> <span class="tag-osv">OSV</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 6: Tiled Text With Icons (Dicas) -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">Dicas para a Fluência</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fa-regular fa-face-smile"></i></div>
+                    <h3>Expressão Facial</h3>
+                    <p>Lembre-se de levantar as sobrancelhas ao sinalizar o Objeto no início da frase para marcar o tópico.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                    <h3>Espaço Neutro</h3>
+                    <p>Posicione o objeto no espaço à sua frente. Isso permite que a ação (verbo) interaja diretamente com ele.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Pensamento Imagem</h3>
+                    <p>Esqueça a tradução palavra por palavra. Pense na cena visual antes de começar a fazer os sinais.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+    <!-- Slide 7: Fim -->
+    <div class="slide-container" id="slide7">
+        <div class="title-layout">
+            <h1>Muito <span class="accent">Obrigado!</span></h1>
+            <p>Bons estudos e continuem praticando a estrutura visual da Libras.</p>
+        </div>
+        <div class="slide-footer">Prof. Gustavo Fontes <span class="accent">|</span> Libras</div>
+    </div>
+
+</body>
+</html>
+```
