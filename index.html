@@ -35,12 +35,14 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            height: 720px;
+            width: 100%;
+            max-width: 1280px;
+            min-height: 720px;
+            height: auto;
             justify-content: center;
             overflow: hidden;
-            padding: 60px;
+            padding: 60px 60px 100px 60px; /* Padding extra embaixo para a assinatura */
             position: relative;
-            width: 1280px;
             color: #8892b0; /* Cor do texto base */
         }
 
@@ -221,12 +223,13 @@
             background-color: #112240;
             border-radius: 12px;
             border: 1px solid #233554;
-            overflow: hidden;
+            overflow-x: auto; /* Permite rolagem no celular */
             box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 700px; /* Evita que a tabela amasse muito */
         }
         th, td {
             padding: 20px 30px;
@@ -259,6 +262,7 @@
             border-radius: 4px;
             font-size: 16px;
             font-weight: 600;
+            white-space: nowrap;
         }
         .tag-osv {
             background: rgba(100, 255, 218, 0.15);
@@ -267,6 +271,7 @@
             border-radius: 4px;
             font-size: 16px;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         /* Assinatura do Professor (Footer) */
@@ -279,6 +284,68 @@
             font-size: 18px;
             font-weight: 500;
             z-index: 10;
+        }
+
+        /* ---------------------------------------------------
+           REGRAS DE RESPONSIVIDADE (CELULARES E TABLETS)
+           --------------------------------------------------- */
+        
+        /* Telas médias (Tablets) */
+        @media (max-width: 1024px) {
+            body {
+                padding: 20px;
+            }
+            .slide-container {
+                padding: 50px 40px 90px 40px;
+            }
+            .slide-container h1 { font-size: 56px; }
+            .slide-container .slide-title { font-size: 38px; }
+            .two-column { gap: 30px; }
+        }
+
+        /* Telas pequenas (Celulares) */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                gap: 20px;
+            }
+            .slide-container {
+                padding: 40px 25px 80px 25px;
+                min-height: auto;
+            }
+            .slide-container h1 { font-size: 40px; }
+            .title-layout p { font-size: 18px; }
+            .slide-container .slide-title { font-size: 30px; margin-bottom: 30px; border-left-width: 4px; padding-left: 15px; }
+            .section-title-layout h2 { font-size: 46px; }
+            
+            /* Transforma colunas em linhas (empilha os blocos) */
+            .two-column { grid-template-columns: 1fr; gap: 30px; }
+            .tiled-content { flex-direction: column; gap: 20px; }
+            
+            .two-column.tiled > div { padding: 30px 20px; }
+            .tile { padding: 30px 20px; }
+            .tile .icon { width: 80px; height: 80px; font-size: 40px; margin-bottom: 15px; }
+            
+            /* Ajusta a tabela */
+            th, td { padding: 15px 20px; font-size: 16px; }
+            th { font-size: 18px; }
+            
+            /* Ajusta a assinatura para telas pequenas */
+            .slide-footer {
+                font-size: 14px;
+                bottom: 20px;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Celulares muito pequenos */
+        @media (max-width: 480px) {
+            .slide-container h1 { font-size: 32px; }
+            .section-title-layout h2 { font-size: 36px; }
+            p, li { font-size: 16px !important; }
+            .slide-container .slide-title { font-size: 26px; }
         }
         
     </style>
@@ -311,12 +378,12 @@
             <div class="two-column tiled">
                 <div style="border-top: 6px solid #ffd700;">
                     <h3 class="accent-yellow">SVO (Ouvintes)</h3>
-                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px;">Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Objeto</p>
+                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Objeto</p>
                     <p style="font-size: 18px; color: #8892b0;">A estrutura padrão da Língua Portuguesa falada e escrita. A ação segue o sujeito linearmente.</p>
                 </div>
                 <div style="border-top: 6px solid #64ffda;">
                     <h3 class="accent">OSV (Surdos)</h3>
-                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px;">Objeto <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo</p>
+                    <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 24px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">Objeto <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Sujeito <i class="fa-solid fa-arrow-right" style="font-size: 16px; margin: 0 10px;"></i> Verbo</p>
                     <p style="font-size: 18px; color: #8892b0;">A topicalização na Libras. O foco visual (o objeto) é apresentado primeiro, montando o cenário.</p>
                 </div>
             </div>
@@ -452,4 +519,3 @@
 
 </body>
 </html>
-```
